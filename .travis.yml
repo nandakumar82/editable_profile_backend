@@ -1,4 +1,5 @@
 language: java
+jdk: openjdk8
 
 addons:
   sonarcloud:
@@ -9,4 +10,4 @@ addons:
 script:
   - ./mvnw clean install -B
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=nandakumar82_editable_profile_backend
+  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
