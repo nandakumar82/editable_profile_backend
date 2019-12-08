@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Nandak on Dec, 2019
@@ -57,8 +58,8 @@ public class EditableProfileRepositoryTest {
 
     @Test
     public void testFetchProfileOtherUserView() {
-        Profile profile = editableProfileRepository.findByDisplayName(save.getDisplayName());
-        Assert.assertNotNull(profile);
+        List<Profile> profileList = editableProfileRepository.findByDisplayNameContaining(save.getDisplayName());
+        Assert.assertFalse(profileList.isEmpty());
     }
 
     @After
