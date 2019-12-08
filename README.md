@@ -1,7 +1,7 @@
 # EDITABLE_PROFILE
 
 
-[![Build Status](https://travis-ci.org/nandakumar82/editable_profile_backend.svg?branch=master)](https://travis-ci.org/nandakumar82/editable_profile_backend.svg?branch=master)
+[![Build Status](https://travis-ci.org/nandakumar82/editable_profile_backend.svg?branch=master)](https://travis-ci.org/nandakumar82/editable_profile_backend)
 
 The repository proves as a java backend layer for the users to Create/Edit/View their profile as well as other's profiles
 
