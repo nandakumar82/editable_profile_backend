@@ -44,8 +44,7 @@ public class ProfileMapper {
      * @return
      */
     public List<ProfileDto> getProfileDtoList(List<Profile> profileList) {
-        List<ProfileDto> profileDtoList = profileList.stream().map(profile -> modelMapper.map(profile, ProfileDto.class)).collect(Collectors.toList());
-        return profileDtoList;
+        return profileList.stream().map(profile -> modelMapper.map(profile, ProfileDto.class)).collect(Collectors.toList());
     }
 
 
