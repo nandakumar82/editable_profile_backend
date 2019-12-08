@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by Nandak on Dec, 2019
  */
+@SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class ProfileServiceTest {
 
