@@ -3,6 +3,7 @@ package com.sparks.editable_profile.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Component
 public class ProfileDto extends ProfileLoginDto {
     @Id

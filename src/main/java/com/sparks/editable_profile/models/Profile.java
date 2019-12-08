@@ -3,7 +3,9 @@ package com.sparks.editable_profile.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -15,10 +17,12 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Document(collection = "profile")
 public class Profile {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String displayName;
     private String realName;
     private String passPhrase;
