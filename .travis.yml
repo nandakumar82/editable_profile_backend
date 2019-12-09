@@ -1,13 +1,6 @@
 language: java
 jdk: openjdk8
 
-#global:
-#  - secure: "encrypted-sonar-token"
-#  - secure: "encrypted-dockerhub-username"
-#  - secure: "encrypted-dockerhub-password"
-#  - secure: "encrypted-heroku-api-key"
-#  - COMMIT=${TRAVIS_COMMIT::7}
-
 addons:
   sonarcloud:
     organization: "nandakumar82"
@@ -27,21 +20,10 @@ services:
 before_install:
   - chmod +x mvnw
 
-#  - gem install travis
-#  - travis encrypt DOCKER_USER=”nandakumar82”
-#  - echo "y" | travis login --github-token $GH_TOKEN
-#  - travis encrypt DOCKER_PASS=”kerala1!”
-#  - echo "y" | travis login --github-token $GH_TOKEN
-#  - docker run -d -p 127.0.0.1:80:4567 nandakumar82/eidtable_profile /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-#  - docker ps -a
-
 after_success:
   - pwd
   - echo $TRAVIS_BUILD_DIR
-#  - docker build .
-#  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - export IMAGE_NAME=nandakumar82/editable_profile
   - docker build -t $IMAGE_NAME .
-
-
-
+  - docker push $IMAGE_NAME
