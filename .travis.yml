@@ -1,7 +1,12 @@
 language: java
 jdk: openjdk8
 
-
+global:
+#  - secure: "encrypted-sonar-token"
+#  - secure: "encrypted-dockerhub-username"
+#  - secure: "encrypted-dockerhub-password"
+#  - secure: "encrypted-heroku-api-key"
+  - COMMIT=${TRAVIS_COMMIT::7}
 
 addons:
   sonarcloud:
@@ -33,7 +38,8 @@ before_install:
 after_success:
   - pwd
   - echo $TRAVIS_BUILD_DIR
-#  - docker build .
+# - docker build .
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
   - export IMAGE_NAME=nandakumar82/editable_profile
   - docker build -t $IMAGE_NAME:$COMMIT .
   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
