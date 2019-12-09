@@ -1,6 +1,8 @@
 language: java
 jdk: openjdk8
 
+
+
 addons:
   sonarcloud:
     organization: "nandakumar82"
@@ -20,6 +22,8 @@ services:
 before_install:
   - pwd
   - echo $TRAVIS_BUILD_DIR
+  - travis encrypt DOCKER_USER=”nandakumar82”
+  - travis encrypt DOCKER_PASS=”kerala1!”
   - docker build -f ./target/editable_profile-0.0.1-SNAPSHOT.jar .
   - docker run -d -p 127.0.0.1:80:4567 nandakumar82/eidtable_profile /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
   - docker ps -a
