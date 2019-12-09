@@ -35,9 +35,10 @@ public class ProfileService {
         try {
             editableProfileRepository.save(profile);
         } catch (Exception e) {
-           if(e.getMessage().contains("E11000 duplicate key error collection")) {
-               log.info("Duplicate Error caught");
-           }
+            if (e.getMessage().contains("E11000 duplicate key error collection")) {
+                log.info("Duplicate Error caught");
+                log.info("Duplicate Error caught");
+            }
         }
         return profileMapper.getProfileDto(profile);
     }
@@ -52,7 +53,7 @@ public class ProfileService {
         log.info("Inside getOtherUserView {}", displayName);
         List<Profile> profileList = editableProfileRepository.findByDisplayNameContaining(displayName);
         if (null == profileList || profileList.isEmpty()) {
-            throw new RecordNotFoundException("The Record is not found!!!!, Please try again");
+            recordNotFound();
         }
         return profileMapper.getProfileDtoList(profileList);
     }
@@ -68,9 +69,13 @@ public class ProfileService {
         log.info("Inside getCurrentUserView {},{}", displayName, passPhrase);
         Profile profile = editableProfileRepository.findByDisplayNameAndPassPhrase(displayName, passPhrase);
         if (null == profile) {
-            throw new RecordNotFoundException("The Record is not found!!!!, Please try again");
+            return recordNotFound();
         }
         return profileMapper.getProfileDto(profile);
+    }
+
+    private ProfileDto recordNotFound() {
+        throw new RecordNotFoundException("The Record is not found!!!!, Please try again");
     }
 
 }
