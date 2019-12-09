@@ -20,6 +20,7 @@ services:
   - docker
 
 before_install:
+  - chmod +x mvnw
   - pwd
   - echo $TRAVIS_BUILD_DIR
 #  - gem install travis
