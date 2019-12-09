@@ -30,7 +30,7 @@ before_install:
 #  - docker run -d -p 127.0.0.1:80:4567 nandakumar82/eidtable_profile /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
 #  - docker ps -a
 
-after_install:
+after_success:
   - pwd
   - echo $TRAVIS_BUILD_DIR
   - docker build -f ./target/editable_profile-0.0.1-SNAPSHOT.jar .
