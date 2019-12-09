@@ -18,6 +18,8 @@ services:
   - docker
 
 before_install:
+  - pwd
+  - echo $TRAVIS_BUILD_DIR
   - docker build . -f Dockerfile
   - docker run -d -p 127.0.0.1:80:4567 nandakumar82/eidtable_profile /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
   - docker ps -a
