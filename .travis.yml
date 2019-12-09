@@ -33,7 +33,10 @@ before_install:
 after_success:
   - pwd
   - echo $TRAVIS_BUILD_DIR
-  - docker build .
+#  - docker build .
+  - export IMAGE_NAME=nandakumar82/editable_profile
+  - docker build -t $IMAGE_NAME:$COMMIT .
+  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
 
 
 
