@@ -33,7 +33,7 @@ before_install:
 after_success:
   - pwd
   - echo $TRAVIS_BUILD_DIR
-  - docker build -f ./target/editable_profile-0.0.1-SNAPSHOT.jar .
+  - docker build .
 
 
 
