@@ -7,14 +7,18 @@ addons:
     token:
       secure: "b0a881694c1a82857760a55595da3af822e1f652" # encrypted value of your token
 
-before_install:
-  - chmod +x mvnw
-
 script:
   - mvn -N io.takari:maven:wrapper
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=nandakumar82_editable_profile_backend
+
 sudo: required
 
 services:
   - docker
+  -
+before_install:
+  - docker build -t nandakumar82/editable_profile .
+  - docker run -d -p 127.0.0.1:80:4567 nandakumar82/eidtable_profile /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
+  - docker ps -a
+
