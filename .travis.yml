@@ -27,3 +27,8 @@ after_success:
   - export IMAGE_NAME=nandakumar82/editable_profile
   - docker build -t $IMAGE_NAME .
   - docker push $IMAGE_NAME
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: nandakumar82-editable-profile-backend
