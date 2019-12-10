@@ -18,6 +18,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -67,7 +70,7 @@ public class ProfileControllerTest {
     public void testCreateProfile() throws Exception {
 
         MockHttpServletResponse response = mvc.perform(
-                post("/api/profile").contentType(MediaType.APPLICATION_JSON).content(
+                post("/api/create/profile").contentType(MediaType.APPLICATION_JSON).content(
                         "{\n" +
                                 "    \"displayName\": \"nandak\",\n" +
                                 "    \"passPhrase\": \"1nduti\",\n" +
@@ -90,24 +93,24 @@ public class ProfileControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
     }
 
- /*   @Test
+    @Test
     public void testGetOtherUserView() throws Exception {
-
-
-        when(profileService.getOtherUserView("nandak")).thenReturn(profileDto);
+        List<ProfileDto> profileDtoList = new ArrayList<>();
+        profileDtoList.add(profileDto);
+        profileDtoList.add(profileDto);
+        when(profileService.getOtherUserView("nandak")).thenReturn(profileDtoList);
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                get("/api/profile/nandak")
+                get("/api/view/profile/nandak")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"displayName\":\"nandak\",\"passPhrase\":\"indutti\",\"id\":null,\"realName\":\"Nanda Kumar\",\"profilePicture\":\"kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda\",\"birthday\":null,\"gender\":\"MALE\",\"ethnicity\":\"Other\",\"religion\":\"Hindu\",\"height\":\"173\",\"figure\":\"Athletic\",\"maritalStatus\":\"Married\",\"occupation\":\"Engineer\",\"aboutMe\":\"I am a software engineer\",\"location\":\"Innsbruck\"}"
+        assertThat(response.getContentAsString()).isEqualTo("[{\"displayName\":\"nandak\",\"passPhrase\":\"indutti\",\"id\":null,\"realName\":\"Nanda Kumar\",\"profilePicture\":\"kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda\",\"birthday\":null,\"gender\":\"MALE\",\"ethnicity\":\"Other\",\"religion\":\"Hindu\",\"height\":\"173\",\"figure\":\"Athletic\",\"maritalStatus\":\"Married\",\"occupation\":\"Engineer\",\"aboutMe\":\"I am a software engineer\",\"location\":\"Innsbruck\"},{\"displayName\":\"nandak\",\"passPhrase\":\"indutti\",\"id\":null,\"realName\":\"Nanda Kumar\",\"profilePicture\":\"kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda\",\"birthday\":null,\"gender\":\"MALE\",\"ethnicity\":\"Other\",\"religion\":\"Hindu\",\"height\":\"173\",\"figure\":\"Athletic\",\"maritalStatus\":\"Married\",\"occupation\":\"Engineer\",\"aboutMe\":\"I am a software engineer\",\"location\":\"Innsbruck\"}]"
         );
     }
-*/
 
     @Test
     public void testCurrentUserView() throws Exception {
@@ -117,7 +120,7 @@ public class ProfileControllerTest {
         when(profileService.getCurrentUserView("nandak", "indutti")).thenReturn(profileDto);
 
         MockHttpServletResponse response = mvc.perform(
-                post("/api/profile/nandak").contentType(MediaType.APPLICATION_JSON).content(
+                post("/api/view/myprofile/").contentType(MediaType.APPLICATION_JSON).content(
                         "{\n" +
                                 "    \"displayName\": \"nandak\",\n" +
                                 "    \"passPhrase\": \"indutti\"\n" +

@@ -28,18 +28,18 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @PostMapping("/profile")
-    public ResponseEntity<ProfileDto> createProfile(@Valid @RequestBody ProfileDto profileDto) {
-        return new ResponseEntity<>(profileService.saveProfile(profileDto), HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/profile/{displayName}")
+    @GetMapping(value = "view/profile/{displayName}")
     public List<ProfileDto> getOtherUserView(@PathVariable("displayName") String displayName) {
         return profileService.getOtherUserView(displayName);
     }
 
-    @PostMapping(value = "/profile/{displayName}")
-    public ProfileDto getCurrentUserView( @Valid @RequestBody ProfileLoginDto profileLoginDto) {
+    @PostMapping("/create/profile")
+    public ResponseEntity<ProfileDto> createProfile(@Valid @RequestBody ProfileDto profileDto) {
+        return new ResponseEntity<>(profileService.saveProfile(profileDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "view/myprofile")
+    public ProfileDto getCurrentUserView(@Valid @RequestBody ProfileLoginDto profileLoginDto) {
         return profileService.getCurrentUserView(profileLoginDto.getDisplayName(), profileLoginDto.getPassPhrase());
     }
 
