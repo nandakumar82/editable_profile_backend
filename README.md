@@ -7,7 +7,13 @@ The repository proves as a java backend layer for the users to Create/Edit/View 
 
 ## Getting Started
 
-The code can be cloned on to the machine and run like a simple SpringBoot application 
+1. The code can be cloned on to the machine and run like a simple SpringBoot application.
+2. The code can be run as a docker image and available at [Docker](https://hub.docker.com/r/nandakumar82/editable_profile)
+3. The code is deployed on Heroku and can be accessed at [Editable_Profile](https://editableprofilebackend.herokuapp.com/).
+4. Swagger docs have been provided to play around with the apis.
+5. The development phase has undergone TDD using mocks and integration tests.
+6. Embedded MongoDb is being used.
+7. CI/CD is taken care using Travis
 
 ### Prerequisites
 
@@ -92,6 +98,12 @@ input
 }
 ``````
 
+##Running using Docker
+
+``````
+docker pull nandakumar82/editable_profile
+docker run -P nandakumar82/editable_profile
+``````
 
 
 ## Running the tests
@@ -116,7 +128,6 @@ ProfileServiceTest.java
 
 EditableProfileApplicationTests.java
 
-
 ```
 
 ### And coding style tests
@@ -131,7 +142,13 @@ SonarCloud is integrated and refreshed dashboard is available for viewing at
 
 ## Deployment
 
-In Progress
+Travis takes care of preparing the Docker image on the fly and deploy to docker hub with the tag 
+
+````
+nandakumar82/editable_profile
+````
+
+Continuous deployment using Travis pipeline is supported to deploy on Heroku
 
 
 ## Contributing
