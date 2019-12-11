@@ -6,7 +6,7 @@ package com.sparks.editable_profile.exception;
 public class RecordNotFoundException extends RuntimeException {
 
     /**
-     * @param message
+     * @param message save the message for RecordNotFound
      */
     public RecordNotFoundException(String message) {
         super(message);
