@@ -12,6 +12,7 @@ import java.util.Date;
 
 
 /**
+ * This object is used to update the DB
  * Created by Nandak on Dec, 2019
  */
 @Getter

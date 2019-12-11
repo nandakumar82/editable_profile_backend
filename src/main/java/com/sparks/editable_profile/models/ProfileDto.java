@@ -14,6 +14,8 @@ import java.util.Date;
 
 
 /**
+ * The class accepts data from the controller/client side
+ *
  * Created by Nandak on Dec, 2019
  */
 @Getter

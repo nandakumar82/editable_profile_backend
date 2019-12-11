@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * This class is used to convert the DTOs to DB models and Vice versa
  * Created by Nandak on Dec, 2019
  */
 @Component
@@ -20,8 +21,8 @@ public class ProfileMapper {
     /**
      * Used during the fetch operations
      *
-     * @param profile
-     * @return
+     * @param profile a profile object
+     * @return a profile DTO object
      */
     public ProfileDto getProfileDto(Profile profile) {
         return modelMapper.map(profile, ProfileDto.class);
@@ -30,8 +31,8 @@ public class ProfileMapper {
     /**
      * Used during the Save operations
      *
-     * @param profileDto
-     * @return
+     * @param profileDto a profile DTO object
+     * @return a profile object
      */
     public Profile getProfile(ProfileDto profileDto) {
         return modelMapper.map(profileDto, Profile.class);
@@ -40,8 +41,8 @@ public class ProfileMapper {
     /**
      * Used when there are more than one profiles returned
      *
-     * @param profileList
-     * @return
+     * @param profileList input a list of profile objects returned from the DB to be converted to DTO objects
+     * @return a list of profile dto objects
      */
     public List<ProfileDto> getProfileDtoList(List<Profile> profileList) {
         return profileList.stream().map(profile -> modelMapper.map(profile, ProfileDto.class)).collect(Collectors.toList());

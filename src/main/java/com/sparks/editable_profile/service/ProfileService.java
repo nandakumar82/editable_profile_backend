@@ -1,5 +1,6 @@
 package com.sparks.editable_profile.service;
 
+import com.sparks.editable_profile.exception.DuplicateRecordFoundException;
 import com.sparks.editable_profile.exception.RecordNotFoundException;
 import com.sparks.editable_profile.mapper.ProfileMapper;
 import com.sparks.editable_profile.models.Profile;
@@ -26,8 +27,8 @@ public class ProfileService {
     /**
      * This method is used for New Profile creations, if an id is present then Update the profile
      *
-     * @param profileDto
-     * @return
+     * @param profileDto The DTO object containing the data from the client side
+     * @return returns a DTO object to be available to client
      */
     public ProfileDto saveProfile(ProfileDto profileDto) {
         log.info("Inside saveProfile {}", profileDto);
@@ -37,7 +38,8 @@ public class ProfileService {
         } catch (Exception e) {
             if (e.getMessage().contains("E11000 duplicate key error collection")) {
                 log.info("Duplicate Error caught");
-                log.info("Duplicate Error caught");
+                throw new DuplicateRecordFoundException("The Username is already taken, please try again with another Username");
+
             }
         }
         return profileMapper.getProfileDto(profile);
@@ -46,8 +48,8 @@ public class ProfileService {
     /**
      * This method is used for Other users to view someone's profile
      *
-     * @param displayName
-     * @return
+     * @param displayName The field is used to search for a profile available online
+     * @return a list of DTO objects to the client
      */
     public List<ProfileDto> getOtherUserView(String displayName) {
         log.info("Inside getOtherUserView {}", displayName);
@@ -61,9 +63,9 @@ public class ProfileService {
     /**
      * This function is used for the Current users to view their profile
      *
-     * @param displayName
-     * @param passPhrase
-     * @return
+     * @param displayName the field used to login to an user profile
+     * @param passPhrase the password used to login to an user profile
+     * @return a DTO object to the client
      */
     public ProfileDto getCurrentUserView(String displayName, String passPhrase) {
         log.info("Inside getCurrentUserView {},{}", displayName, passPhrase);
@@ -74,6 +76,10 @@ public class ProfileService {
         return profileMapper.getProfileDto(profile);
     }
 
+    /**
+     * A common method to handle RecordNotFound exception
+     * @return a profile dto object
+     */
     private ProfileDto recordNotFound() {
         throw new RecordNotFoundException("The Record is not found!!!!, Please try again");
     }

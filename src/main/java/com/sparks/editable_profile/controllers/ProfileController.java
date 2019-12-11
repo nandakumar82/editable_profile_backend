@@ -18,6 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
+ * Controller exposes apis used for consumption by the UI tier
+ *
  * Created by Nandak on Dec, 2019
  */
 @RestController

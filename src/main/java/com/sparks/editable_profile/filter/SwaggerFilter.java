@@ -23,6 +23,14 @@ public class SwaggerFilter implements Filter {
 
     }
 
+    /**
+     * Filter written for the purpose of redirecting to Swagger UI once user loads http://localhost:8080
+     * @param servletRequest request object
+     * @param servletResponse response object
+     * @param filterChain filter chain object
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
