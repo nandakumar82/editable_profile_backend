@@ -2,8 +2,8 @@ package com.sparks.editable_profile.mapper;
 
 import com.sparks.editable_profile.models.Profile;
 import com.sparks.editable_profile.models.ProfileDto;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,13 +28,11 @@ public class ProfileMapperTest {
     @Autowired
     private ProfileMapper profileMapper;
 
-    //TODO asssert for all the values
     @Test
     void testGetProfileDto() {
         profile = new Profile();
         profile.setDisplayName("NandaK");
         profile.setRealName("Nanda Kumar");
-        profile.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile.setBirthday(new Date());
         profile.setGender("MALE");
         profile.setEthnicity("Other");
@@ -45,16 +43,25 @@ public class ProfileMapperTest {
         profile.setAboutMe("I am a software engineer");
         profile.setLocation("Innsbruck");
         ProfileDto profileDto = profileMapper.getProfileDto(profile);
-        Assert.notNull(profileDto);
+        Assert.assertNotNull(profileDto);
+        Assert.assertEquals("Display name", profileDto.getDisplayName(), profile.getDisplayName());
+        Assert.assertEquals("Real Name", profileDto.getRealName(), profile.getRealName());
+        Assert.assertEquals("Birthday", profileDto.getBirthday(), profile.getBirthday());
+        Assert.assertEquals("Gender", profileDto.getGender(), profile.getGender());
+        Assert.assertEquals("Ethnicity", profileDto.getEthnicity(), profile.getEthnicity());
+        Assert.assertEquals("Religion", profileDto.getReligion(), profile.getReligion());
+        Assert.assertEquals("Figure", profileDto.getFigure(), profile.getFigure());
+        Assert.assertEquals("MaritalStatus", profileDto.getMaritalStatus(), profile.getMaritalStatus());
+        Assert.assertEquals("Occupation", profileDto.getOccupation(), profile.getOccupation());
+        Assert.assertEquals("AboutMe", profileDto.getAboutMe(), profile.getAboutMe());
+        Assert.assertEquals("Location", profileDto.getLocation(), profile.getLocation());
     }
 
-    //TODO asssert for all the values
     @Test
     void testGetProfile() {
         profileDto = new ProfileDto();
         profileDto.setDisplayName("NandaK");
         profileDto.setRealName("Nanda Kumar");
-        profileDto.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profileDto.setBirthday(new Date());
         profileDto.setGender("MALE");
         profileDto.setEthnicity("Other");
@@ -65,7 +72,19 @@ public class ProfileMapperTest {
         profileDto.setAboutMe("I am a software engineer");
         profileDto.setLocation("Innsbruck");
         Profile profile = profileMapper.getProfile(profileDto);
-        Assert.notNull(profile);
+
+        Assert.assertNotNull(profile);
+        Assert.assertEquals("Display name", profile.getDisplayName(), profileDto.getDisplayName());
+        Assert.assertEquals("Real Name", profile.getRealName(), profileDto.getRealName());
+        Assert.assertEquals("Birthday", profile.getBirthday(), profileDto.getBirthday());
+        Assert.assertEquals("Gender", profile.getGender(), profileDto.getGender());
+        Assert.assertEquals("Ethnicity", profile.getEthnicity(), profileDto.getEthnicity());
+        Assert.assertEquals("Religion", profile.getReligion(), profileDto.getReligion());
+        Assert.assertEquals("Figure", profile.getFigure(), profileDto.getFigure());
+        Assert.assertEquals("MaritalStatus", profile.getMaritalStatus(), profileDto.getMaritalStatus());
+        Assert.assertEquals("Occupation", profile.getOccupation(), profileDto.getOccupation());
+        Assert.assertEquals("AboutMe", profile.getAboutMe(), profileDto.getAboutMe());
+        Assert.assertEquals("Location", profile.getLocation(), profileDto.getLocation());
     }
 
     @Test
@@ -76,7 +95,6 @@ public class ProfileMapperTest {
         profileDto = new ProfileDto();
         profileDto.setDisplayName("NandaK");
         profileDto.setRealName("Nanda Kumar");
-        profileDto.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profileDto.setBirthday(new Date());
         profileDto.setGender("MALE");
         profileDto.setEthnicity("Other");
@@ -90,7 +108,6 @@ public class ProfileMapperTest {
         profileDto1 = new ProfileDto();
         profileDto1.setDisplayName("NandaK");
         profileDto1.setRealName("Nanda Kumar");
-        profileDto1.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profileDto1.setBirthday(new Date());
         profileDto1.setGender("MALE");
         profileDto1.setEthnicity("Other");
@@ -104,7 +121,6 @@ public class ProfileMapperTest {
         profile = new Profile();
         profile.setDisplayName("NandaK");
         profile.setRealName("Nanda Kumar");
-        profile.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile.setBirthday(new Date());
         profile.setGender("MALE");
         profile.setEthnicity("Other");
@@ -118,7 +134,6 @@ public class ProfileMapperTest {
         profile1 = new Profile();
         profile1.setDisplayName("NandaKumar");
         profile1.setRealName("Nanda Kumar");
-        profile1.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile1.setBirthday(new Date());
         profile1.setGender("MALE");
         profile1.setEthnicity("Other");
@@ -135,7 +150,6 @@ public class ProfileMapperTest {
         profileList.add(profile);
         profileList.add(profile1);
         profileMapper.getProfileDtoList(profileList);
-        Assert.isTrue(profileMapper.getProfileDtoList(profileList).size() == 2);
-
+        Assert.assertEquals(2, profileMapper.getProfileDtoList(profileList).size());
     }
 }

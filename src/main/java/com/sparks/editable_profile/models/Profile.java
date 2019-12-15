@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,7 +28,7 @@ public class Profile {
     private String displayName;
     private String realName;
     private String passPhrase;
-    private String profilePicture;
+    private Binary profilePicture;
     private Date birthday;
     private String gender;
     private String ethnicity;

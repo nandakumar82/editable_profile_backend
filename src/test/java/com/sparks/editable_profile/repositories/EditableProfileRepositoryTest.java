@@ -30,7 +30,6 @@ public class EditableProfileRepositoryTest {
         profile.setDisplayName("NandaK");
         profile.setPassPhrase("indutti");
         profile.setRealName("Nanda Kumar");
-        profile.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile.setBirthday(new Date());
         profile.setGender("MALE");
         profile.setEthnicity("Other");

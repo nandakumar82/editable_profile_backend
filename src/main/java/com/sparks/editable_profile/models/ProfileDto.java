@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class ProfileDto extends ProfileLoginDto {
     @NotBlank(message = "{profile.field.realName.required}")
     @Size(max = 256)
     private String realName;
-    private String profilePicture;
+    private Binary profilePicture;
     @NotNull(message = "{profile.field.birthday.required}")
     private Date birthday;
     @NotBlank(message = "{profile.field.gender.required}")

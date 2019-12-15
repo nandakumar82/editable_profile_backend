@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,12 +45,13 @@ public class ProfileServiceTest {
     private Profile profile;
     private Profile profile1;
 
+    private MockMultipartFile profilePic = new MockMultipartFile("profile_pic", "profile_pic.jpg", "multipart/form-data", "some image".getBytes());
+
     @Before
     public void setUp() {
         profileDto = new ProfileDto();
         profileDto.setDisplayName("NandaK");
         profileDto.setRealName("Nanda Kumar");
-        profileDto.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profileDto.setBirthday(new Date());
         profileDto.setGender("MALE");
         profileDto.setEthnicity("Other");
@@ -63,7 +65,6 @@ public class ProfileServiceTest {
         profile = new Profile();
         profile.setDisplayName("NandaK");
         profile.setRealName("Nanda Kumar");
-        profile.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile.setBirthday(new Date());
         profile.setGender("MALE");
         profile.setEthnicity("Other");
@@ -77,7 +78,6 @@ public class ProfileServiceTest {
         profile1 = new Profile();
         profile1.setDisplayName("NandaKumar");
         profile1.setRealName("Nanda Kumar");
-        profile1.setProfilePicture("kjdnfkjasndfkjasndfnasdkjfnasdnfkajsdnfasdnfnasdnfkansdfkasdfnnsda");
         profile1.setBirthday(new Date());
         profile1.setGender("MALE");
         profile1.setEthnicity("Other");
@@ -96,18 +96,18 @@ public class ProfileServiceTest {
         when(profileMapper.getProfile(profileDto)).thenReturn(profile);
         profile.setId("1234");
         when(profileMapper.getProfileDto(profile)).thenReturn(profileDto);
-        profileService.saveProfile(profileDto);
+        profileService.saveProfile(profileDto, profilePic);
         verify(editableProfileRepository, times(1)).save(profile);
     }
 
     @Test
-    public void testSaveProfileWhenProfileIsNull() {
+    public void testSaveProfileWhenProfileIsEmpty() {
         ProfileDto profileDto = new ProfileDto();
         Profile profile = new Profile();
         when(profileMapper.getProfile(profileDto)).thenReturn(profile);
         profile.setId("1234");
         when(profileMapper.getProfileDto(profile)).thenReturn(profileDto);
-        profileService.saveProfile(profileDto);
+        profileService.saveProfile(profileDto, profilePic);
         verify(editableProfileRepository, times(1)).save(profile);
     }
 

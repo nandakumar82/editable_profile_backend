@@ -7,10 +7,15 @@ import com.sparks.editable_profile.models.Profile;
 import com.sparks.editable_profile.models.ProfileDto;
 import com.sparks.editable_profile.repositories.EditableProfileRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Nandak on Dec, 2019
@@ -30,11 +35,15 @@ public class ProfileService {
      * @param profileDto The DTO object containing the data from the client side
      * @return returns a DTO object to be available to client
      */
-    public ProfileDto saveProfile(ProfileDto profileDto) {
+    public ProfileDto saveProfile(ProfileDto profileDto, MultipartFile profilePic) {
         log.info("Inside saveProfile {}", profileDto);
-        Profile profile = profileMapper.getProfile(profileDto);
+        Profile profile = null;
         try {
+            profileDto.setProfilePicture(new Binary(BsonBinarySubType.BINARY, profilePic.getBytes()));
+            profile = profileMapper.getProfile(profileDto);
             editableProfileRepository.save(profile);
+        } catch (IOException e) {
+            log.error("Exception Thrown while converting picture to binary " + e.getMessage());
         } catch (Exception e) {
             if (e.getMessage().contains("E11000 duplicate key error collection")) {
                 log.info("Duplicate Error caught");
@@ -64,7 +73,7 @@ public class ProfileService {
      * This function is used for the Current users to view their profile
      *
      * @param displayName the field used to login to an user profile
-     * @param passPhrase the password used to login to an user profile
+     * @param passPhrase  the password used to login to an user profile
      * @return a DTO object to the client
      */
     public ProfileDto getCurrentUserView(String displayName, String passPhrase) {
@@ -78,10 +87,26 @@ public class ProfileService {
 
     /**
      * A common method to handle RecordNotFound exception
+     *
      * @return a profile dto object
      */
     private ProfileDto recordNotFound() {
         throw new RecordNotFoundException("The Record is not found!!!!, Please try again");
     }
 
+    /**
+     * This method is used to pick a specific profile from a list of profiles on the screen
+     *
+     * @param profileId the id of the profile to be fetched
+     * @return profileDto
+     */
+    public ProfileDto getProfile(String profileId) {
+        log.info("Inside getProfile {}", profileId);
+        Profile profile = null;
+        Optional<Profile> optionalProfile = editableProfileRepository.findById(profileId);
+        if (optionalProfile.isPresent()) {
+            profile = optionalProfile.get();
+        }
+        return profileMapper.getProfileDto(profile);
+    }
 }
