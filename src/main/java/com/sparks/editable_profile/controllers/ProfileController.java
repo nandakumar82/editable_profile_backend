@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparks.editable_profile.models.ProfileDto;
 import com.sparks.editable_profile.models.ProfileLoginDto;
 import com.sparks.editable_profile.service.ProfileService;
+import com.sparks.editable_profile.validator.CustomBeanValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,9 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private CustomBeanValidator customBeanValidator;
+
     @GetMapping(value = "view/allprofile/{displayName}")
     public List<ProfileDto> getOtherUserView(@PathVariable("displayName") String displayName) {
         return profileService.getOtherUserView(displayName);
@@ -42,7 +46,7 @@ public class ProfileController {
     @PostMapping("/create/profile")
     public ResponseEntity<ProfileDto> createProfile(@RequestParam("profile") String profileDtoJsonString, @RequestParam("image") MultipartFile profilePic) throws JsonProcessingException {
         ProfileDto profileDto = new ObjectMapper().readValue(profileDtoJsonString, ProfileDto.class);
-        System.out.println(profileDto);
+        customBeanValidator.validateFields(profileDto);
         return new ResponseEntity<>(profileService.saveProfile(profileDto, profilePic), HttpStatus.CREATED);
     }
 
