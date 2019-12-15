@@ -14,6 +14,7 @@ The repository proves as a java backend layer for the users to Create/Edit/View 
 5. The development phase has undergone TDD using mocks and integration tests.
 6. Embedded MongoDb is being used.
 7. CI/CD is taken care using Travis
+8. Actuators are made available to query the health stats [Actuator](https://editableprofilebackend.herokuapp.com/actuator)
 
 ### Prerequisites
 
@@ -63,7 +64,7 @@ Please follow the
 to list out the api documentations available.
 
 
-[Create an UserProfile](http://localhost:8080/api/profile)
+[Create an UserProfile](http://localhost:8081/api/profile)
 
 ``````
 input
@@ -86,10 +87,10 @@ input
 }
 ``````
 
-[Other's view](http://localhost:8080/api/profile/{displayName})
+[Other's view](http://localhost:8081/api/profile/{displayName})
 
 
-[User's View](http://localhost:8080/api/profile/{displayName})
+[User's View](http://localhost:8081/api/profile/{displayName})
 
 ``````
 {
