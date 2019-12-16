@@ -44,7 +44,7 @@ public class ProfileController {
     }
 
     @PostMapping("/create/profile")
-    public ResponseEntity<ProfileDto> createProfile(@RequestParam("profile") String profileDtoJsonString, @RequestParam("image") MultipartFile profilePic) throws JsonProcessingException {
+    public ResponseEntity<ProfileDto> createProfile(@RequestParam("profile") String profileDtoJsonString,  @RequestParam(value = "image", required = false) MultipartFile profilePic) throws JsonProcessingException {
         ProfileDto profileDto = new ObjectMapper().readValue(profileDtoJsonString, ProfileDto.class);
         customBeanValidator.validateFields(profileDto);
         return new ResponseEntity<>(profileService.saveProfile(profileDto, profilePic), HttpStatus.CREATED);

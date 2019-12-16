@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparks.editable_profile.models.ProfileDto;
 import com.sparks.editable_profile.models.ProfileLoginDto;
 import com.sparks.editable_profile.service.ProfileService;
+import com.sparks.editable_profile.validator.CustomBeanValidator;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,6 +39,9 @@ public class ProfileControllerTest {
     @Mock
     private ProfileService profileService;
 
+    @Mock
+    private CustomBeanValidator customBeanValidator;
+
     @InjectMocks
     private ProfileController profileController;
 
@@ -66,29 +69,10 @@ public class ProfileControllerTest {
 
     }
 
-    @Ignore
     @Test
     public void testCreateProfile() throws Exception {
-
         MockHttpServletResponse response = mvc.perform(
-                post("/api/create/profile").contentType(MediaType.ALL_VALUE).content(
-                        "{\n" +
-                                "    \"displayName\": \"nandak\",\n" +
-                                "    \"passPhrase\": \"1nduti\",\n" +
-                                "    \"realName\": \"NandaKumar\",\n" +
-                                "    \"birthday\": \"1982-12-14T00:00:00.000+0000\",\n" +
-                                "    \"gender\": \"Male\",\n" +
-                                "    \"ethnicity\": \"Others\",\n" +
-                                "    \"religion\": \"Hindu\",\n" +
-                                "    \"height\": \"173\",\n" +
-                                "    \"figure\": \"Atheletic\",\n" +
-                                "    \"maritalStatus\": \"Married\",\n" +
-                                "    \"occupation\": \"Engineer\",\n" +
-                                "    \"aboutMe\": \"lksdflsmfs;dlf;asdlfka\",\n" +
-                                "    \"location\": \"sdfasdfsadfasdfasdfadsfads\"\n" +
-                                "}"
-                )).andReturn().getResponse();
-
+                post("/api/create/profile").contentType(MediaType.ALL_VALUE).param("profile", "{\"displayName\":\"kooper\",\"passPhrase\":\"kooper\",\"realName\":\"kooper\",\"birthday\":\"2019-12-02\",\"gender\":\"Male\",\"ethnicity\":\"South Asian\",\"religion\":\"Atheist\",\"height\":\"173\",\"figure\":\"Normal\",\"maritalStatus\":\"Separated\",\"occupation\":\"\",\"aboutMe\":\"\",\"location\":\"test\"}")).andReturn().getResponse();
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
     }

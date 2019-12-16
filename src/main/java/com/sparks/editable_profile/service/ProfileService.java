@@ -39,7 +39,8 @@ public class ProfileService {
         log.info("Inside saveProfile {}", profileDto);
         Profile profile = null;
         try {
-            profileDto.setProfilePicture(new Binary(BsonBinarySubType.BINARY, profilePic.getBytes()));
+            if(null != profilePic)
+                profileDto.setProfilePicture(new Binary(BsonBinarySubType.BINARY, profilePic.getBytes()));
             profile = profileMapper.getProfile(profileDto);
             editableProfileRepository.save(profile);
         } catch (IOException e) {
