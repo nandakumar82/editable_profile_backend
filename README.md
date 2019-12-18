@@ -58,7 +58,7 @@ Please follow the
 
 
 
-[SwaggerUi](http://localhost:8080/swagger-ui.html#/profile-controller)
+[SwaggerUi](http://localhost:8081/swagger-ui.html#/profile-controller)
 
 
 to list out the api documentations available.
@@ -69,22 +69,8 @@ to list out the api documentations available.
 ``````
 input
 
-{
-    "displayName": "test4",
-    "passPhrase": "test4",
-    "realName": "Nanda Kumar",
-    "profilePicture": "giuhojflajfasfk;lasdkfa;sdfk;asdfk;asdkfasd;lk",
-    "birthday": "1982-12-14T00:00:00.000+0000",
-    "gender": "Male",
-    "ethnicity": "Others",
-    "religion": "Hindu",
-    "height": "173",
-    "figure": "Atheletic",
-    "maritalStatus": "Married",
-    "occupation": "Engineer",
-    "aboutMe": "lksdflsmfs;dlf;asdlfka",
-    "location": "sdfasdfsadfasdfasdfadsfads"
-}
+{"displayName":"kooper","passPhrase":"kooper","realName":"kooper","birthday":"2019-12-02","gender":"Male","ethnicity":"South Asian","religion":"Atheist","height":"173","figure":"Normal","maritalStatus":"Separated","occupation":"","aboutMe":"","location":"test"}
+
 ``````
 
 [Other's view](http://localhost:8081/api/profile/{displayName})
