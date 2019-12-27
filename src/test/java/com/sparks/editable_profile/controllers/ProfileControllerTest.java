@@ -39,9 +39,6 @@ public class ProfileControllerTest {
     @Mock
     private ProfileService profileService;
 
-    @Mock
-    private CustomBeanValidator customBeanValidator;
-
     @InjectMocks
     private ProfileController profileController;
 
