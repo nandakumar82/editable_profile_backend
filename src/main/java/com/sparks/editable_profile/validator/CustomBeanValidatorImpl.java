@@ -16,15 +16,15 @@ import java.util.stream.Collectors;
  */
 @Component
 public class CustomBeanValidatorImpl implements CustomBeanValidator {
-    ValidatorFactory valdiatorFactory;
+    ValidatorFactory validatorFactory;
 
     public CustomBeanValidatorImpl() {
-        valdiatorFactory = Validation.buildDefaultValidatorFactory();
+        validatorFactory = Validation.buildDefaultValidatorFactory();
     }
 
     @Override
     public <T> void validateFields(T object) throws ValidationsFatalException {
-        Validator validator = valdiatorFactory.getValidator();
+        Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> failedValidations = validator.validate(object);
 
         if (!failedValidations.isEmpty()) {

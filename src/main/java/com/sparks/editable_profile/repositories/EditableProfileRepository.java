@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * The cllass used to establish connection to MongoDB
+ * The class used to establish connection to MongoDB
  * Created by Nandak on Dec, 2019
  */
 @Repository
