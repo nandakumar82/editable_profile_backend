@@ -6,10 +6,12 @@ import com.sparks.editable_profile.models.ProfileDto;
 import com.sparks.editable_profile.models.ProfileLoginDto;
 import com.sparks.editable_profile.service.ProfileService;
 import com.sparks.editable_profile.validator.CustomBeanValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
 import java.util.List;
 
 /**
@@ -38,16 +41,16 @@ public class ProfileController {
     @Autowired
     private CustomBeanValidator customBeanValidator;
 
-    @GetMapping(value = "view/allprofile/{displayName}")
-    public List<ProfileDto> getOtherUserView(@PathVariable("displayName") String displayName) {
-        return profileService.getOtherUserView(displayName);
-    }
-
     @PostMapping("/create/profile")
-    public ResponseEntity<ProfileDto> createProfile(@RequestParam("profile") String profileDtoJsonString,  @RequestParam(value = "image", required = false) MultipartFile profilePic) throws JsonProcessingException {
+    public ResponseEntity<ProfileDto> createProfile(@RequestParam("profile") String profileDtoJsonString, @RequestParam(value = "image", required = false) MultipartFile profilePic) throws JsonProcessingException {
         ProfileDto profileDto = new ObjectMapper().readValue(profileDtoJsonString, ProfileDto.class);
         customBeanValidator.validateFields(profileDto);
         return new ResponseEntity<>(profileService.saveProfile(profileDto, profilePic), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "view/allprofile/{displayName}")
+    public List<ProfileDto> getOtherUserView(@PathVariable("displayName") String displayName) {
+        return profileService.getOtherUserView(displayName);
     }
 
     @PostMapping(value = "view/myprofile")
@@ -59,6 +62,17 @@ public class ProfileController {
     @GetMapping(value = "view/profile/{profileId}")
     public ProfileDto getProfile(@PathVariable("profileId") String profileId) {
         return profileService.getProfile(profileId);
+    }
+
+    @DeleteMapping(value = "profile/{profileId}")
+    public ResponseEntity deleteProfile(@PathVariable("profileId") String profileId) {
+        boolean isDeleted = profileService.deleteProfile(profileId);
+        if (isDeleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(500).build();
+        }
+
     }
 
 }

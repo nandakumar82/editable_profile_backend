@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparks.editable_profile.models.ProfileDto;
 import com.sparks.editable_profile.models.ProfileLoginDto;
 import com.sparks.editable_profile.service.ProfileService;
-import com.sparks.editable_profile.validator.CustomBeanValidator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +22,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sparks.editable_profile.validator.CustomBeanValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -34,10 +36,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RunWith(MockitoJUnitRunner.class)
 public class ProfileControllerTest {
 
+    public static final String PROFILE_ID = "1234";
     private MockMvc mvc;
 
     @Mock
     private ProfileService profileService;
+
+    @Mock
+    private CustomBeanValidator customBeanValidator;
 
     @InjectMocks
     private ProfileController profileController;
@@ -63,7 +69,6 @@ public class ProfileControllerTest {
         profileDto.setOccupation("Engineer");
         profileDto.setAboutMe("I am a software engineer");
         profileDto.setLocation("Innsbruck");
-
     }
 
     @Test
@@ -114,4 +119,24 @@ public class ProfileControllerTest {
         );
 
     }
+
+    @Test
+    public void when_delete_success_then_return_ok() throws Exception {
+        when(profileService.deleteProfile(PROFILE_ID)).thenReturn(true);
+        MockHttpServletResponse response = deleteProfile(PROFILE_ID);
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void when_delete_unsuccessful_return_500() throws Exception {
+        when(profileService.deleteProfile(PROFILE_ID)).thenReturn(false);
+        MockHttpServletResponse response = deleteProfile(PROFILE_ID);
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    private MockHttpServletResponse deleteProfile(String profileId) throws Exception {
+        return mvc.perform(
+                delete("/api/profile/" + profileId)).andReturn().getResponse();
+    }
+
 }

@@ -56,6 +56,15 @@ public class ProfileService {
     }
 
     /**
+     *
+     * @param profileId
+     * @return
+     */
+    public boolean deleteProfile(String profileId) {
+        return false;
+    }
+
+    /**
      * This method is used for Other users to view someone's profile
      *
      * @param displayName The field is used to search for a profile available online

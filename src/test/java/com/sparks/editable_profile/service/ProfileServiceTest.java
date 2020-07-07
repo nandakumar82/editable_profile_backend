@@ -145,4 +145,10 @@ public class ProfileServiceTest {
         verify(profileMapper, times(0)).getProfileDto(profile);
     }
 
+    @Test
+    public void testDeleteProfilefails() {
+//        when(editableProfileRepository.deleteById("1234")).thenThrow(new RuntimeException());
+        boolean isDeleted = profileService.deleteProfile("1234");
+
+    }
 }
